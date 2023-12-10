@@ -11,37 +11,38 @@
 6. 每次运行回测前，请确保"Stocks_Chosen"文件夹为空文件夹，否则"Stocks_Chosen"文件夹中将残留前次回测的输出结果。
 
 总之，您的文件夹设置应如下所示：
-| dir/
-    | data/
-        | stk_daily.feather
-    | your_repo/
-        | newdata/
-            | hs300.csv
-            | risk_free_rate.csv
-        | Results/
-        | Stocks_Chosen/
-        | test.ipynb
-        | mysystem.py
-        | Readme.md
+| dir/ |            |                   |                    |
+|------|------------|-------------------|--------------------|
+|      | data/      |                   |                    |
+|      |            | stk_daily.feather |                    |
+|      | your_repo/ |                   |                    |
+|      |            | newdata/          |                    |
+|      |            |                   | hs300.csv          |
+|      |            |                   | risk_free_rate.csv |
+|      |            | Results/          |                    |
+|      |            | Stocks_Chosen/    |                    |
+|      |            | test.ipynb        |                    |
+|      |            | mysystem.py       |                    |
+|      |            | Readme.md         |                    |
 
 ## python库说明
 
-在使用系统前，请确保您的python环境中安装了：
-    pandas
-    numpy
-    datetime
-    matplotlib
-    os
+在使用系统前，请确保您的python环境中安装了：  
+    pandas  
+    numpy  
+    datetime  
+    matplotlib  
+    os  
 
 ## 策略输入说明
 
 请您运行`test.ipynb`并按照“xx xxxx-xx-xx xxxx-xx-xx xx"的格式输入投资策略、回测的时间区间
-以及调仓频率（单位为天）。
-若不输入调仓频率，则调仓频率默认为1天，即每天调仓一次。
-输入示例：3日动量策略 2020-01-02 2022-12-30 20
-输入完成后请按下“Enter”键。
-回测时间区间为“2020-01-02”至“2022-12-30”。
-策略种类限制为n日动量策略（其他策略待开发中……）
+以及调仓频率（单位为天）。  
+若不输入调仓频率，则调仓频率默认为1天，即每天调仓一次。  
+输入示例：3日动量策略 2020-01-02 2022-12-30 20  
+输入完成后请按下“Enter”键。  
+回测时间区间为“2020-01-02”至“2022-12-30”。  
+策略种类限制为n日动量策略（其他策略待开发中……）  
 
 ## 回测时间补充说明
 
@@ -55,7 +56,7 @@
        两行代码取消注释（即将#删去）；
     3. 将`test.ipynb`该段注释中的以下两行代码取消注释（即将#删去）
        ms.get_hs300()
-       ms.get_bond()
+       ms.get_bond()  
     完成以上步骤后，请您继续阅读下一段指引并运行回测。
 
 ## 结果输出
@@ -64,7 +65,7 @@
 1. 直接在`test.ipynb`中运行代码，并查收结果
 2. 在"Stocks_Chosen"文件夹下，查收每日的持仓情况。
 3. 在“outputs”文件夹下，查收净值曲线和收益率曲线。
-4. 在“outputs”文件夹下，查收年化收入、年化波动、超额收益、夏普率、信息比率、胜率、最大回撤、alpha和beta等策略指标。
+4. 在“outputs”文件夹下，查收年化收益、年化波动、超额收益、夏普率、信息比率、胜率、最大回撤、alpha和beta等策略指标。
 
 ## 数据说明
 
