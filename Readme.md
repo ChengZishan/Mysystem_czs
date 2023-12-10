@@ -27,7 +27,7 @@
 
 ## python库说明
 
-在使用系统前，请确保您的python环境中安装了：
+在使用系统前，请确保您的python环境中安装了：  
     pandas  
     numpy  
     datetime  
