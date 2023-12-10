@@ -134,6 +134,8 @@ def get_data():
     # 抽出数据集中指定时间区间的数据
     if start_date >= '2020-01-02' and end_date <= '2022-12-30':
         data = pd.read_feather('../data/stk_daily.feather')
+        data = data.dropna()
+        data.index = [i for i in range(data.shape[0])]
 
         # 通过date对数据集重新排序，取出时间区间内的所有数据
         data = data.sort_values('date')
@@ -187,12 +189,23 @@ def rate_vol_cal():
     
     global data_dic
     global data
+    global strategy_day
+
     # 用股票id对数据集进行分组
     data_grouped = data.groupby('stk_id')
     data_list = []
 
+    # 取出data_grouped中的第一组
+    stk_id = data_grouped.groups.keys()
+    stk_id = list(stk_id)[0]
+    stk_data = data_grouped.get_group(stk_id)
+    total_days = stk_data.shape[0]
+
     # 对每只股票计算日收益率、n日均值收益率和n日均值交易量
     for stk_id, stk_data in data_grouped:
+        now_days = stk_data.shape[0]
+        if now_days < total_days:
+            continue
         stk_data['ln_rate_returns'] = pd.Series(np.log(stk_data.close/stk_data.close.shift(1)),index=stk_data.index)
         stk_data = stk_data.bfill()
         stk_data[str(strategy_day)+'-days_rate_returns'] = stk_data['ln_rate_returns'].rolling(strategy_day).mean()
@@ -261,8 +274,8 @@ def choose_stk(day, last = None, First_day = False):
     money_list.append(start_money)
 
     # 选出今天的股票列表
-    return_sort = mean_return_data.loc[day].sort_values(ascending=False).dropna()
-    return_chosen = mean_volume_data[list(return_sort.index[0:100])].loc[day].sort_values(ascending=False).dropna()
+    return_sort = mean_return_data.loc[day].dropna().sort_values(ascending=False)
+    return_chosen = mean_volume_data[list(return_sort.index[0:100])].loc[day].dropna().sort_values(ascending=False)
     stk_list = list(return_chosen.index[0:50])
 
     # 生成今天的持仓情况csv文件
@@ -274,6 +287,7 @@ def choose_stk(day, last = None, First_day = False):
     df_today['持仓份数'] = df_today['当日收盘价'].apply(lambda x: int(start_money/50/x))
     df_today[str(strategy_day)+'日内平均收益率'] = mean_return_data.loc[day][stk_list].values
     df_today[str(strategy_day)+'日内平均交易量'] = mean_volume_data.loc[day][stk_list].values
+    # print(df_today)
     df_today.to_csv('Stocks_Chosen/' + str(day.date()) + '.csv', index=False)
 
     return stk_list, start_money
