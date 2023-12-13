@@ -76,7 +76,7 @@ end_date = ''
 strategy_day = 0
 
 # 调仓频率
-change_day = 1
+change_day = 15
 
 # 策略种类
 strategy = ''
