@@ -50,12 +50,12 @@
 2. 建议调仓频率大于15天，策略表现较好。
 3. 若回测时间超出以上范围，请您仔细阅读`test.ipynb`中的说明，并按照指引：
     1. 保证您的电脑已经安装了WindPy，并且已经成功登录WindPy；
-    2. 在同文件夹下的“mysystem.py”文件中，将19-20行的
-       from WindPy import *
-       w.start()
+    2. 在同文件夹下的“mysystem.py”文件中，将56-57行的  
+       from WindPy import *  
+       w.start()  
        两行代码取消注释（即将#删去）；
-    3. 将`test.ipynb`该段注释中的以下两行代码取消注释（即将#删去）
-       ms.get_hs300()
+    3. 将`test.ipynb`该段注释中的以下两行代码取消注释（即将#删去）  
+       ms.get_hs300()  
        ms.get_bond()  
     完成以上步骤后，请您继续阅读下一段指引并运行回测。
 
